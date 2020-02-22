@@ -12,7 +12,7 @@ const Posts = ({query}) => {
                     setResponse(googleData);
                 }
             },
-            simpleSheet: true
+            simpleSheet: true,
         })
     }, []);
     const filteredData = response.filter(item => {
@@ -25,7 +25,7 @@ const Posts = ({query}) => {
             {response.length ? (
                 filteredData.map(obj => {
                     return(
-                        <BlogItem key={obj.title} id={obj.id} title={obj.title} description={obj.description} image={obj.image} />
+                        <BlogItem key={obj.title} id={ obj.id.split('=').pop() } title={obj.title} description={obj.description} image={obj.image} />
                     )
                 })
             ) : (
