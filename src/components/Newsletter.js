@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme => ({
     },
     error: {
         color: '#f44336'
+    },
+    success: {
+        color: '#4caf50',
+        fontWeight: 'bold'
     }
 }))
 
@@ -36,6 +40,7 @@ const Newsletter = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [inptError, setInptError] = useState(false);
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState('')
     const handleClickOpen = () => {
         setOpen(true);
       };
@@ -45,11 +50,13 @@ const Newsletter = () => {
         setInptError(false);
         setValue('');
         setError('');
+        setSuccessMessage('');
     };
     const handleSend = () => {
         const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         if(regex.test(value.toLowerCase())){
-            setError('')
+            setError('');
+            setSuccessMessage('');
             setInptError(false);
             setIsLoading(true);
             const url = "https://us-central1-leszekkeu.cloudfunctions.net/newsletteradd";
@@ -66,12 +73,15 @@ const Newsletter = () => {
             .then(data => data.json())
             .then(res => {
                 console.log(res)
-                if(res.message === true){
+                if(res.success === true){
                     setIsLoading(false);
-                    console.log('ok!')
+                    setError('');
+                    setSuccessMessage('Success!');
+                    
                 }else{
-                    setError('Error!')
+                    setError('Error!');
                     setIsLoading(false);
+                    setSuccessMessage('');
                 }
             })
             .catch(() => {
@@ -117,6 +127,7 @@ const Newsletter = () => {
                         disabled={isLoading}
                     />
                     <p className={classes.error}>{error}</p>
+                    <p className={classes.success}>{successMessage}</p>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose} color="primary">
