@@ -36,7 +36,7 @@ const BlogItem = ({title, image, description, id}) => {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={image}
+                        image={'https://drive.google.com/uc?export=view&id=' + image}
                         title={title}
                     />
                     <CardContent>
