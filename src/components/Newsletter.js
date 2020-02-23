@@ -52,7 +52,7 @@ const Newsletter = () => {
             setError('')
             setInptError(false);
             setIsLoading(true);
-            const url = "https://us-central1-webaily.cloudfunctions.net/newsletteradd";
+            const url = "https://us-central1-leszekkeu.cloudfunctions.net/newsletteradd";
             const params = {
                 email: value.toLowerCase(),
             };
